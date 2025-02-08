@@ -1,0 +1,11 @@
+Flask
+Flask-Login
+Flask-Mail
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-WhooshAlchemy
+Flask-WTF
+Flask-Babel
+coverage
+pyowm
+openmeteo-requests
