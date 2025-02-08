@@ -1,3 +1,4 @@
+"@Alexander Kibeedi"
 import openmeteo_requests
 
 import requests_cache
@@ -111,20 +112,31 @@ def getRainfallGap():
 import pandas as pd
 
 # Load the CSV file
-seed_data = {
-    "Seed Type": ["Tomato", "Cucumber", "Carrot", "Lettuce", "Pepper"],
-    "Min Temp (°C)": [3, 15, 5, 7, 12],
-    "Max Temp (°C)": [5, 35, 25, 28, 32],
-    "Min Rainfall (mm)": [20, 25, 15, 18, 22],
-    "Max Rainfall (mm)": [50, 60, 40, 45, 55],
-    "Min Sunlight (hours/day)": [6, 8, 5, 6, 7],
-    "Max Sunlight (hours/day)": [12, 14, 10, 11, 13],
-    "Min Soil pH": [6.0, 6.5, 5.5, 6.0, 6.2],
-    "Max Soil pH": [7.0, 7.5, 6.5, 7.0, 7.2],
-    "Germination Time (days)": [7, 10, 14, 5, 8],
-    "Growth Duration (days)": [90, 70, 80, 60, 75],
-    "Watering Frequency (days)": [3, 2, 4, 3, 2]
-}
+from app import db
+from app.models import Seeds
+import pandas as pd
+
+# Query the database to get all seed data
+seeds = Seeds.query.all()
+
+# Convert the seed data to a list of dictionaries
+seed_data = []
+for seed in seeds:
+    seed_data.append({
+        "SeedId": seed.SeedId,
+        "SeedName": seed.SeedName,
+        "OwnerId": seed.OwnerId,
+        "MinTemp": seed.MinTemp,
+        "MaxTemp": seed.MaxTemp,
+        "MinRain": seed.MinRain,
+        "MaxRain": seed.MaxRain,
+        "MinSun": seed.MinSun,
+        "MaxSun": seed.MaxSun,
+        "GermeTime": seed.GermeTime,
+        "WaterFreq": seed.WaterFreq,
+        "MineralGive": seed.MineralGive,
+        "MineralTake": seed.MineralTake
+    })
 df = pd.DataFrame(seed_data)
 
 
@@ -137,27 +149,42 @@ waterWarning=("Plant not watered not frequently enough")
 rainWarning1=("Rainfall too low")
 rainWarning2=("Rainfall too high")
 
+userID=0
+def add_notification(user_id, message):
+    # Create a new notification
+    notification = Notifications(UserId=user_id, Message=message)
+    
+    # Add the notification to the session and commit
+    db.session.add(notification)
+    db.session.commit()
+
 #Check the different conditions
 def checkTemp(minTemp, maxTemp, weather):
      if weather<minTemp:
           print (tempWarning1)
+          add_notification(userID, tempWarning1)
      if weather>maxTemp:
           print (tempWarning2)
+          add_notification(userID, tempWarning2)
 
 def checkSunlight(minSun, maxSun, weather):
      if weather<minSun:
           print (sunWarning1)
      if weather>maxSun:
           print (sunWarning2)
+          add_notification(userID, sunWarning1)
 def checkWatering(waterFreq, weatherRainfallGap):
      if waterFreq<weatherRainfallGap:
           print(waterWarning)
+          add_notification(userID, sunWarning2)
 
 def checkRainfall(minRain, maxRain, weather):
     if weather<minRain:
         print(rainWarning1)
+        add_notification(userID, rainWarning1)
     if weather>maxRain:
         print(rainWarning2)
+        add_notification(userID, rainWarning2)
 
 
 
