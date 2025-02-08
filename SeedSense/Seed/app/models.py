@@ -1,22 +1,27 @@
-# from app import db
-# from flask_login import UserMixin
+from app import db
+from flask_login import UserMixin
 
-# """
-# db for:
 
-# user
-# seeds(have preset seeds in here and just make the userid  = All)
-# fields
+class User(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    Username = db.Column(db.String(15), index=True, unique=True)
+    Password = db.Column(db.String(30))
 
-# """
+    #User email too email incaase of emergancy
+    Email = db.Column(db.String(50))
 
-# class User(db.Model,UserMixin):
-#     id = db.Column(db.Integer, primary_key=True)
-#     Username = db.Column(db.String(15), index=True, unique=True)
-#     Password = db.Column(db.String(30))
+    #List of seeds used by the user
+    SeedList = db.Column(db.String)
 
-#     def __repr__(self):
-#         return f"Variable(id={self.id}, Username={self.Username}, Password={self.Password}"
+def __repr__(self):
+    return (
+        f"Variable(id={self.id}, "
+        f"Username={self.Username}, "
+        f"Password={self.Password}, "
+        f"Email={self.Email}, "
+        f"SeedList={self.SeedList})"
+    )
+
 
 
 
@@ -85,7 +90,7 @@ class Fields(db.Model):
     #Matrix that stores how seeds are planted across a grid
     SeedMatrix = db.Column(db.String)
 
-    #Matrix that stores the present minerals within a subgrid
+    #Matrix that stores the lacking minerals within a subgrid
     MineralsMatrix = db.Column(db.String)
 
     def __repr__(self):
