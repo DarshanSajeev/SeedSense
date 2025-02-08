@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress Bar and Grid Example</title>
+    <title>Grid Creator</title>
+    <p>Create a grid </p>
     <style>
         /* Body Styling */
         body {
@@ -112,15 +113,17 @@
     <div id="grid-container"></div>
 
     <!-- Enter Button -->
-    <button id="enter-btn" onclick="goToMineralsPage()">Enter</button>
+    <a href="minerals.html">
+        <button type="button">Enter</button>
+    </a>
 
     <script>
         let progress = 0;  // Initial progress
 
         // Function to increase progress bar
         function increaseProgress() {
-            if (progress < 100) {
-                progress += 25;
+            if (progress < 25) {
+                progress = 25;
                 document.getElementById("progress-bar").style.width = progress + "%";
                 localStorage.setItem('progress', progress); // Store progress in localStorage
             }
