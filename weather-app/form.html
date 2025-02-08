@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed Information Form</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to the external JavaScript file -->
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Seed Information Form</h1>
+        <p>Please fill out the details below.</p>
+        
+        <form action="#" method="post" onsubmit="return validateForm()">
+
+            <div class="form-group">
+                <label for="seed-type">Seed Type</label>
+                <input type="text" id="seed-type" name="seed-type" placeholder="Enter seed type" required>
+            </div>
+
+            <div class="form-group">
+                <label for="min-temp">Min Temperature (°C)</label>
+                <input type="number" id="min-temp" name="min-temp" placeholder="Min Temp" required min="-100" max="100" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="max-temp">Max Temperature (°C)</label>
+                <input type="number" id="max-temp" name="max-temp" placeholder="Max Temp" required min="-100" max="100" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="min-rain">Min Rainfall (mm)</label>
+                <input type="number" id="min-rain" name="min-rain" placeholder="Min Rainfall" required min="0" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="max-rain">Max Rainfall (mm)</label>
+                <input type="number" id="max-rain" name="max-rain" placeholder="Max Rainfall" required min="0" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="min-sunlight">Min Sunlight (hours)</label>
+                <input type="number" id="min-sunlight" name="min-sunlight" placeholder="Min Sunlight" required min="0" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="max-sunlight">Max Sunlight (hours)</label>
+                <input type="number" id="max-sunlight" name="max-sunlight" placeholder="Max Sunlight" required min="0" step="0.1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="germination">Germination Time (days)</label>
+                <input type="number" id="germination" name="germination" placeholder="Days to germinate" required min="1" max="365" step="1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="watering">Watering Frequency (days)</label>
+                <input type="number" id="watering" name="watering" placeholder="Water every X days" required min="1" step="1" onkeypress="allowOnlyNumbers(event)">
+            </div>
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
