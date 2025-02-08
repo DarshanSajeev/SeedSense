@@ -11,7 +11,6 @@ Components:
     Navigation Bar: Links to Sign Up & Login
     Introduction Text: Project overview
     Call to Action: Sign Up / Log In options
-    Footer: Contact, privacy policy, terms of service
 
 Links:
     Sign Up Page
@@ -20,7 +19,7 @@ Links:
 @app.route('/home', methods=['GET', 'POST'])
 def Home():
 
-    return 
+    return render_template("index.html")
 
 
 
