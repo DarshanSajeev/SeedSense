@@ -1,9 +1,10 @@
+<!-- @Darshan -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Select</title>
+    <title>Progress Bar and Grid Example</title>
     <style>
         /* Body Styling */
         body {
@@ -95,7 +96,7 @@
     </style>
 </head>
 <body>
-    <h1>Grid Select</h1>
+    <h1>Progress Bar and Grid Example</h1>
 
     <!-- Progress Bar Section -->
     <div id="progress-container">
@@ -105,13 +106,13 @@
     <!-- Grid Section -->
     <div id="grid-input">
         <label for="grid-size">Enter grid size (e.g., 2x2): </label>
-        <input type="text" id="grid-size" placeholder="e.g. 2x2" oninput="validateInput()">
+        <input type="text" id="grid-size" placeholder="e.g. 2x2">
         <button onclick="createGrid()">Create Grid</button>
     </div>
     <div id="grid-container"></div>
 
-    <!-- Enter Button to increase progress and navigate -->
-    <button id="enter-btn" onclick="enterPage()" disabled>Enter</button>
+    <!-- Enter Button -->
+    <button id="enter-btn" onclick="goToMineralsPage()">Enter</button>
 
     <script>
         let progress = 0;  // Initial progress
@@ -119,7 +120,7 @@
         // Function to increase progress bar
         function increaseProgress() {
             if (progress < 100) {
-                progress += 25; // Increase progress by 25% each time
+                progress += 25;
                 document.getElementById("progress-bar").style.width = progress + "%";
                 localStorage.setItem('progress', progress); // Store progress in localStorage
             }
@@ -134,11 +135,6 @@
             gridContainer.innerHTML = '';
 
             // Validate the input format (e.g., 2x2)
-            if (gridSize.trim() === "") {
-                alert("Please enter a grid size.");
-                return;
-            }
-
             const regex = /^(\d+)x(\d+)$/;
             const match = gridSize.match(regex);
 
@@ -162,36 +158,14 @@
             }
         }
 
-        // Function to validate grid input and enable/disable the Enter button
-        function validateInput() {
-            const gridSize = document.getElementById("grid-size").value;
-            const regex = /^(\d+)x(\d+)$/;
-            const match = gridSize.match(regex);
-            
-            // Enable the Enter button if the input is valid, otherwise disable it
-            if (match && gridSize.trim() !== "") {
-                document.getElementById("enter-btn").disabled = false;
-            } else {
-                document.getElementById("enter-btn").disabled = true;
-            }
+        // Function to handle Enter button click
+        function goToMineralsPage() {
+            // Store the current progress value
+            localStorage.setItem('progress', progress);
+
+            // Navigate to the minerals page
+            window.location.href = 'minerals.html'; // Redirect to minerals page
         }
-
-        // Function to navigate to the next page and increase progress
-        // Function to navigate to the next page and increase progress
-        function enterPage() {
-            const gridSize = document.getElementById("grid-size").value;
-            if (gridSize.trim() === "") {
-                alert("Please enter a grid size before continuing.");
-                return;
-            }
-
-            increaseProgress();  // Increase the progress bar
-            localStorage.setItem('progress', progress);  // Store progress in localStorage
-
-            // Navigate to the minerals page using window.location.replace
-            window.location.replace("minerals.html");  // Ensure this path is correct!
-        }
-
 
         // On page load, set the progress bar to the saved value (if any)
         window.onload = function() {

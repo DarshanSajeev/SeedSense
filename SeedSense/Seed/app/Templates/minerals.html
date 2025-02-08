@@ -1,3 +1,4 @@
+<!-- @Darshan -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,8 +111,8 @@
     </div>
     <div id="grid-container"></div>
 
-    <!-- Enter Button to increase progress and navigate -->
-    <button id="enter-btn" onclick="enterPage()" disabled>Enter</button>
+    <!-- Enter Button to increase progress -->
+    <button id="enter-btn" onclick="increaseProgress()" disabled>Enter</button>
 
     <script>
         let progress = 0;  // Initial progress
@@ -134,11 +135,6 @@
             gridContainer.innerHTML = '';
 
             // Validate the input format (e.g., 2x2)
-            if (gridSize.trim() === "") {
-                alert("Please enter a grid size.");
-                return;
-            }
-
             const regex = /^(\d+)x(\d+)$/;
             const match = gridSize.match(regex);
 
@@ -169,29 +165,12 @@
             const match = gridSize.match(regex);
             
             // Enable the Enter button if the input is valid, otherwise disable it
-            if (match && gridSize.trim() !== "") {
+            if (match) {
                 document.getElementById("enter-btn").disabled = false;
             } else {
                 document.getElementById("enter-btn").disabled = true;
             }
         }
-
-        // Function to navigate to the next page and increase progress
-        // Function to navigate to the next page and increase progress
-        function enterPage() {
-            const gridSize = document.getElementById("grid-size").value;
-            if (gridSize.trim() === "") {
-                alert("Please enter a grid size before continuing.");
-                return;
-            }
-
-            increaseProgress();  // Increase the progress bar
-            localStorage.setItem('progress', progress);  // Store progress in localStorage
-
-            // Navigate to the minerals page using window.location.replace
-            window.location.replace("minerals.html");  // Ensure this path is correct!
-        }
-
 
         // On page load, set the progress bar to the saved value (if any)
         window.onload = function() {
