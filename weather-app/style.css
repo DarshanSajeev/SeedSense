@@ -1,7 +1,7 @@
-/* Google Forms-Like Styling */
+/* General Body Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,32 +9,50 @@ body {
     margin: 0;
 }
 
-/* Form Container */
-.form-container {
-    background: white;
+/* Container for the login and form pages */
+.container {
+    background-color: white;
     padding: 30px;
-    border-radius: 15px;  /* Adjusted rounded corners */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 500px;
     text-align: center;
-    border: 3px solid #28a745;  /* Green border */
 }
 
-/* Title & Description */
+/* Header */
 h1 {
-    font-size: 24px;
-    color: #28a745;  /* Green title */
+    color: #388E3C; /* Green */
+    font-size: 28px;
     margin-bottom: 10px;
 }
 
+/* Paragraph Text */
 p {
     color: #666;
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 20px;
 }
 
-/* Input Fields */
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 10px;
+    background-color: #388E3C; /* Green */
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2c6c2f; /* Darker Green */
+}
+
+/* Form Styling */
 .form-group {
     text-align: left;
     margin-bottom: 15px;
@@ -45,6 +63,7 @@ label {
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 5px;
+    color: #388E3C; /* Green */
 }
 
 input {
@@ -58,14 +77,14 @@ input {
 }
 
 input:focus {
-    border-color: #28a745;  /* Green focus color */
+    border-color: #388E3C; /* Green */
 }
 
-/* Submit Button */
+/* Submit Button Styling */
 button {
     width: 100%;
     padding: 12px;
-    background-color: #28a745;  /* Green button */
+    background-color: #388E3C; /* Green */
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -76,46 +95,5 @@ button {
 }
 
 button:hover {
-    background-color: #218838;  /* Darker green on hover */
-}
-
-/* Button Styles */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #4285F4;
-    color: white;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #3367d6;
-}
-
-/* Container for the login page */
-.login-container {
-    text-align: center;
-    padding: 50px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-h1 {
-    color: #333;
-    font-size: 30px;
-}
-
-p {
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 20px;
+    background-color: #2c6c2f; /* Darker Green */
 }
