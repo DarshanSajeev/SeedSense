@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Dashboard</h1>
+            <button id="logout" onclick="logout()">Logout</button>
+        </header>
+
+        <div class="sections">
+            <div class="section" id="watering">
+                <h2>Watering</h2>
+                <p>Manage watering schedules and settings for crops.</p>
+            </div>
+
+            <div class="section" id="placement">
+                <h2>Placement</h2>
+                <p>Manage the placement of crops within the field.</p>
+            </div>
+
+            <div class="section" id="crop-cycle">
+                <h2>Crop Cycle</h2>
+                <p>View and manage crop growth stages and timelines.</p>
+            </div>
+
+            <div class="section" id="create-crops">
+                <h2>Create Crops</h2>
+                <p>Create and add new crops to your system.</p>
+                <button onclick="window.location.href='create_crop.html'">Create New Crop</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            // Logic to handle logging out
+            window.location.href = 'login.html'; // Redirect to login page
+        }
+    </script>
+</body>
+</html>
