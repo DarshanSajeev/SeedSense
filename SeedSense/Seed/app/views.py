@@ -1,5 +1,5 @@
 from app import app, db, models
-from flask import render_template, flash,redirect ,request
+from flask import render_template, flash,redirect ,request,session
 
 
 
@@ -107,6 +107,8 @@ def LogIn():
             elif CurrentUser.Password != Password:
                 flash("Password is incorrect", "danger")
                 return redirect(url_for("LogIn"))
+            else:
+                session['UserId'] = CurrentUser.id
 
     return render_template("login.html")
 
@@ -128,7 +130,11 @@ Links:
 @app.route('/LogOut', methods=['GET', 'POST'])
 def LogOut():
 
-    return
+    # Remove the user ID from the session
+    session.pop('UserId', None)  
+    flash("You have logged out", "info")
+    return redirect(url_for('Home'))
+
 
 
 """
