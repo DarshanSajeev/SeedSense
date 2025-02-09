@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minerals Checklist - Seed Sense</title>
-    <link rel="stylesheet" href="style.css">
+    <link {{ url_for('static', filename='style.css') }}>
     <style>
         /* Basic styling for the checklist */
         body {
@@ -133,7 +133,7 @@
             </div>
 
             <!-- Submit Button -->
-            <a href="help.html">
+            <a href="{{ url_for(filename='style.css') }}">
                 <button type="button">Submit</button>
             </a>
         </form>

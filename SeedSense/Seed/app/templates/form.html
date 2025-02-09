@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seed Information Form</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         /* Larger dropdowns with more length */
         select {
@@ -113,7 +113,9 @@
                 </select>
             </div>
 
-            <button type="submit">Submit</button>
+            <a {{ url_for(filename='help.html') }}>
+                <button type="submit">Submit</button>
+            </a>
 
         </form>
     </div>
