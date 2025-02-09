@@ -180,6 +180,43 @@ Links:
 """
 @app.route('/SeedTypes', methods=['GET', 'POST'])
 def SeedTypes():
+     if request.method == 'POST':
+        SeedName = request.form.get('seedname')
+        MinTemp = request.form.get('mintemp', type=float)
+        MaxTemp = request.form.get('maxtemp', type=float)
+        MinWater = request.form.get('minwater', type=float)
+        MaxWater = request.form.get('maxwater', type=float)
+        MinSun = request.form.get('minsun', type=float)
+        MaxSun = request.form.get('maxsun', type=float)
+        GermeTime = request.form.get('germetime', type=int)
+        WaterFreq = request.form.get('waterfreq', type=int)
+        MineralGive = request.form.get('mineralgive')
+        MineralTake = request.form.get('mineraltake')
+
+        # Create a new seed object
+        new_seed = Seed(
+            SeedName=SeedName,
+            OwnerId=session['UserId'],
+            MinTemp=MinTemp,
+            MaxTemp=MaxTemp,
+            MinWater=MinWater,
+            MaxWater=MaxWater,
+            MinSun=MinSun,
+            MaxSun=MaxSun,
+            GermeTime=GermeTime,
+            WaterFreq=WaterFreq,
+            MineralGive=MineralGive,
+            MineralTake=MineralTake
+        )
+
+        db.session.add(new_seed)
+        db.session.commit()
+        flash("Seed added successfully!", "success")
+
+        return redirect(url_for(''))
+
+    return render_template("")
+
 
     return
 
