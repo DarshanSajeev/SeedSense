@@ -70,6 +70,9 @@ def Register():
             # Save user to the database
             db.session.add(NewUser)
             db.session.commit()
+
+            #Store user id for website functions
+            session['UserId'] = NewUser.id
             
     return render_template("register.html")
 
@@ -103,7 +106,7 @@ def LogIn():
 
             if CurrentUser == None:
                 flash("User does not exist","danger")
-                return redirect(url("LogIn"))
+                return redirect(url_for("LogIn"))
             elif CurrentUser.Password != Password:
                 flash("Password is incorrect", "danger")
                 return redirect(url_for("LogIn"))
@@ -320,7 +323,7 @@ def FieldCreation():
             flash("Grid created successfully!", "success")
             return redirect(url_for('')) 
 
-    return render_template("intial.html")
+    return render_template("initial.html")
 
 
 
