@@ -168,6 +168,29 @@ def dashboard():
 
 
 """
+Help Page
+
+Purpose:
+    Provide users with essential information and recommendations regarding field management.
+
+Components:
+
+    Field View: Helps users understand how crops perform in different environmental conditions, including soil, water, and sunlight requirements.
+    Growth Essentials: Provides information on key nutrients, soil pH, temperature, and watering frequencies necessary for healthy plant growth.
+    Placement Recommendation: Suggests optimal planting locations based on environmental factors like temperature, sunlight, and soil quality. Includes intercropping and crop rotation strategies.
+
+Links:
+    Field View Section
+    Growth Essentials Section
+    Placement Recommendation Section
+"""
+@app.route("/help")
+def help():
+
+    return("help.html")
+
+
+"""
 Settings Page
 
 Purpose:
