@@ -1,5 +1,5 @@
 from app import app, db, models
-from flask import render_template, flash,redirect ,request
+from flask import render_template, flash,redirect ,request,session
 
 
 
@@ -70,6 +70,9 @@ def Register():
             # Save user to the database
             db.session.add(NewUser)
             db.session.commit()
+
+            #Store user id for website functions
+            session['UserId'] = NewUser.id
             
     return render_template("register.html")
 
@@ -103,10 +106,12 @@ def LogIn():
 
             if CurrentUser == None:
                 flash("User does not exist","danger")
-                return redirect(url("LogIn"))
+                return redirect(url_for("LogIn"))
             elif CurrentUser.Password != Password:
                 flash("Password is incorrect", "danger")
                 return redirect(url_for("LogIn"))
+            else:
+                session['UserId'] = CurrentUser.id
 
     return render_template("login.html")
 
@@ -128,7 +133,64 @@ Links:
 @app.route('/LogOut', methods=['GET', 'POST'])
 def LogOut():
 
-    return
+    # Remove the user ID from the session
+    session.pop('UserId', None)  
+    flash("You have logged out", "info")
+    
+    return redirect(url_for('Home'))
+
+
+"""
+Dashboard Page
+
+Purpose:
+    Provide users with a central hub for managing field-related tasks.
+
+Components:
+    
+    Watering: Allows users to manage watering schedules and settings for crops.
+    Placement: Enables users to organize and place crops within their designated field areas.
+    Crop Cycle: Helps users track and manage crop growth stages and timelines.
+    Create Crops: Allows users to add new crops to the system.
+
+Links:
+    Watering Page
+    Placement Page
+    Crop Cycle Page
+    Create Crops Page
+    Logout (Redirects to Login Page)
+"""
+@app.route('/dashboard')
+def dashboard():
+    # Check if user is logged in
+    if 'UserId' not in session:
+        flash("You must log in first.", "warning")
+        return redirect(url_for('login'))
+
+    return render_template('dashboard.html')
+
+
+"""
+Help Page
+
+Purpose:
+    Provide users with essential information and recommendations regarding field management.
+
+Components:
+
+    Field View: Helps users understand how crops perform in different environmental conditions, including soil, water, and sunlight requirements.
+    Growth Essentials: Provides information on key nutrients, soil pH, temperature, and watering frequencies necessary for healthy plant growth.
+    Placement Recommendation: Suggests optimal planting locations based on environmental factors like temperature, sunlight, and soil quality. Includes intercropping and crop rotation strategies.
+
+Links:
+    Field View Section
+    Growth Essentials Section
+    Placement Recommendation Section
+"""
+@app.route("/help")
+def help():
+
+    return("help.html")
 
 
 """
@@ -174,21 +236,54 @@ Links:
 """
 @app.route('/SeedTypes', methods=['GET', 'POST'])
 def SeedTypes():
+    if request.method == 'POST':
+        SeedName = request.form.get('seed-type')
+        MinTemp = request.form.get('min-temp', type=float)
+        MaxTemp = request.form.get('max-temp', type=float)
+        MinWater = request.form.get('min-rain', type=float)
+        MaxWater = request.form.get('max-rain', type=float)
+        MinSun = request.form.get('min-sunlight', type=float)
+        MaxSun = request.form.get('max-sunlight', type=float)
+        GermeTime = request.form.get('germination', type=int)
+        WaterFreq = request.form.get('watering', type=int)
+        MineralGive = request.form.get('minerals-in')
+        MineralTake = request.form.get('minerals-out')
 
-    return
+        # Create a new seed object
+        new_seed = Seed(
+            SeedName = SeedName,
+            OwnerId = session['UserId'],
+            MinTemp = MinTemp,
+            MaxTemp = MaxTemp,
+            MinWater = MinWater,
+            MaxWater = MaxWater,
+            MinSun = MinSun,
+            MaxSun = MaxSun,
+            GermeTime = GermeTime,
+            WaterFreq = WaterFreq,
+            MineralGive = MineralGive,
+            MineralTake = MineralTake
+        )
+
+        db.session.add(new_seed)
+        db.session.commit()
+        flash("Seed added successfully!", "success")
+
+        return redirect(url_for(''))
+
+    return render_template("form.html")
+
 
 
 """
-Seed Location Page
+Field Creation Page
 
 Purpose:
-    Input locations for seed planting through an interactive grid.
+    Create farm field through an interactive grid.
 
 Components:
 
-    Grid: Users select specific cells to assign seeds.
     Grid Size Input: Allows users to specify the size of the planting grid.
-    Seed Selection: Users can choose the seed type to be planted in each selected grid cell.
     Confirm Button: Confirms the placement of the selected seeds on the grid.
 
 Links:
@@ -197,10 +292,68 @@ Links:
     Crop Cycle Page
     Seed Plot Page 
 """
-@app.route('/SeedLocation', methods=['GET', 'POST'])
-def SeedLocation():
+@app.route('/FieldCreation', methods=['GET', 'POST'])
+def FieldCreation():
+    if request.method == 'POST':
+        FieldName = request.form.get('fieldname')
+        GridSize = request.form.get('grid-size')  # Expecting "2x2"
 
-    return
+        # Validate and parse "NxM" format
+        if GridSize:
+            match = re.match(r"^(\d+)x(\d+)$", GridSize)
+            if match:
+                NumRow = int(match.group(1))
+                NumColumn = int(match.group(2))
+            else:
+                flash("Invalid grid size format. Please use NxM format.", "error")
+                return redirect(url_for('FieldCreation'))  # Stay on the same page
+
+            # Create a new grid object
+            NewField = Fields(
+                OwnerId=session['UserId'],
+                FieldName=FieldName,
+                NumRow=NumRow,
+                NumColumn=NumColumn,
+                SeedMatrix="",
+                MineralsMatrix=""
+            )
+
+            db.session.add(NewField)
+            db.session.commit()
+            flash("Grid created successfully!", "success")
+            return redirect(url_for('')) 
+
+    return render_template("initial.html")
+
+
+
+
+"""
+Seed Selection Page
+
+Purpose:
+    User selects the seeds they want to plant on the field.
+
+Components:
+
+    Grid Display: A visual representation of the grid with planted seeds.
+    Tickbox: Select each seed via a tickbox
+    Confirm Button: Confirm selection.
+    
+Links:
+    Schedule Dashboard
+    Seed Location Page
+    Seed Input Page
+    Crop Cycle Page
+"""
+@app.route('/SeedSelect', methods=['GET', 'POST'])
+def SeedSelect():
+    if request.method == 'POST':
+        CurrentSeeds = request.form.get('SelectedSeeds')
+
+    
+    return 
+
 
 
 """
