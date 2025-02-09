@@ -1,4 +1,5 @@
-from app import app
+from app import app, db, models
+from flask import render_template, flash,redirect ,request
 
 
 
@@ -17,7 +18,7 @@ Links:
     Sign Up Page
     Login Page
 """
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def Home():
 
     return render_template("index.html")
@@ -43,7 +44,7 @@ Links:
     Login Page
 
 """
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/Register', methods=['GET', 'POST'])
 def Register():
     if request.method == 'POST':
         Username = request.form.get('username')

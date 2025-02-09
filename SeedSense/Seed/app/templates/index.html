@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seed Sense</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -14,8 +14,8 @@
         <p>Login or Register!</p>
         
         <div class="login-buttons">
-            <a href="login.html" class="btn">Login</a>
-            <a href="register.html" class="btn">Register</a>
+            <a href="{{ url_for('LogIn') }}" class="btn">Login</a>
+            <a href="{{ url_for('Register') }}" class="btn">Register</a>
         </div>
     </div>
 

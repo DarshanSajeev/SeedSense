@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Seed Sense</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
               
         </form>
 
-        <p>Don't have an account? <a href="register.html" class="btn">Register here</a></p>
+        <p>Don't have an account? <a href="{{ url_for('Register') }}" class="btn">Register here</a></p>
     </div>
 
 </body>

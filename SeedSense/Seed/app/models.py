@@ -85,7 +85,7 @@ class Fields(db.Model):
 
     #Num of row/columns of the grid
     NumRow = db.Column(db.Integer)
-    NumColumn = db.Column(db.Integer)
+    NumColumn = db.Column(db.Integer)  
 
     #Matrix that stores how seeds are planted across a grid
     SeedMatrix = db.Column(db.String)
