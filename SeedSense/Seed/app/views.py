@@ -181,17 +181,17 @@ Links:
 @app.route('/SeedTypes', methods=['GET', 'POST'])
 def SeedTypes():
      if request.method == 'POST':
-        SeedName = request.form.get('seedname')
-        MinTemp = request.form.get('mintemp', type=float)
-        MaxTemp = request.form.get('maxtemp', type=float)
-        MinWater = request.form.get('minwater', type=float)
-        MaxWater = request.form.get('maxwater', type=float)
-        MinSun = request.form.get('minsun', type=float)
-        MaxSun = request.form.get('maxsun', type=float)
-        GermeTime = request.form.get('germetime', type=int)
-        WaterFreq = request.form.get('waterfreq', type=int)
-        MineralGive = request.form.get('mineralgive')
-        MineralTake = request.form.get('mineraltake')
+        SeedName = request.form.get('seed-type')
+        MinTemp = request.form.get('min-temp', type=float)
+        MaxTemp = request.form.get('max-temp', type=float)
+        MinWater = request.form.get('min-rain', type=float)
+        MaxWater = request.form.get('max-rain', type=float)
+        MinSun = request.form.get('min-sunlight', type=float)
+        MaxSun = request.form.get('max-sunlight', type=float)
+        GermeTime = request.form.get('germination', type=int)
+        WaterFreq = request.form.get('watering', type=int)
+        MineralGive = request.form.get('minerals-in')
+        MineralTake = request.form.get('minerals-out')
 
         # Create a new seed object
         new_seed = Seed(
@@ -215,10 +215,8 @@ def SeedTypes():
 
         return redirect(url_for(''))
 
-    return render_template("")
+    return render_template("form.html")
 
-
-    return
 
 
 """
@@ -240,27 +238,65 @@ Links:
 """
 @app.route('/FieldCreation', methods=['GET', 'POST'])
 def FieldCreation():
-        if request.method == 'POST':
-            FieldName = request.form.get('fieldname')
-            NumRow = request.form.get('numrow', type=int)
-            NumColumn = request.form.get('numcolumn', type=int)
+    if request.method == 'POST':
+        FieldName = request.form.get('fieldname')
+        GridSize = request.form.get('grid-size')  # Expecting "2x2"
+
+        # Validate and parse "NxM" format
+        if GridSize:
+            match = re.match(r"^(\d+)x(\d+)$", GridSize)
+            if match:
+                NumRow = int(match.group(1))
+                NumColumn = int(match.group(2))
+            else:
+                flash("Invalid grid size format. Please use NxM format.", "error")
+                return redirect(url_for('FieldCreation'))  # Stay on the same page
 
             # Create a new grid object
-            new_grid = Grid(
+            NewField = Fields(
                 OwnerId=session['UserId'],
                 FieldName=FieldName,
                 NumRow=NumRow,
                 NumColumn=NumColumn,
-                SeedMatrix = "",
-                MineralsMatrix = ""
+                SeedMatrix="",
+                MineralsMatrix=""
             )
 
-            db.session.add(new_grid)
+            db.session.add(NewField)
             db.session.commit()
             flash("Grid created successfully!", "success")
-            return redirect(url_for(''))
+            return redirect(url_for('')) 
 
-    return render_template()
+    return render_template("intial.html")
+
+
+
+
+"""
+Seed Selection Page
+
+Purpose:
+    User selects the seeds they want to plant on the field.
+
+Components:
+
+    Grid Display: A visual representation of the grid with planted seeds.
+    Tickbox: Select each seed via a tickbox
+    Confirm Button: Confirm selection.
+    
+Links:
+    Schedule Dashboard
+    Seed Location Page
+    Seed Input Page
+    Crop Cycle Page
+"""
+@app.route('/SeedSelect', methods=['GET', 'POST'])
+def SeedSelect():
+    if request.method == 'POST':
+        CurrentSeeds = request.form.get('SelectedSeeds')
+
+    
+    return 
 
 
 
