@@ -1,0 +1,145 @@
+/* style2.css */
+
+/* ---------- Body & Container ---------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* ---------- Header & Paragraph ---------- */
+h1 {
+    color: #388E3C; /* Green */
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* ---------- Form & Button ---------- */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #388E3C; /* Green */
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: #388E3C;
+}
+
+button, .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #388E3C;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #2c6c2f;
+}
+
+/* For inline radio and grid-size inputs */
+.grid-size {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.grid-size label {
+    flex: 1;
+    text-align: left;
+}
+
+.grid-size input {
+    flex: 1;
+}
+
+/* ---------- Grid Styles ---------- */
+#gridContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#gridExplanation {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.grid-wrapper {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 0 auto;
+    background: white;
+    width: fit-content;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 5px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    border: 1px solid #ccc;
+    background: white;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    border-radius: 2px;
+}
+
+/* ---------- Chart & Network Containers ---------- */
+#chartContainer, #networkSection {
+    margin-top: 20px;
+}
+
+#networkContainer {
+    border: 1px solid #ddd;
+    background: white;
+    height: 400px;
+    border-radius: 4px;
+}

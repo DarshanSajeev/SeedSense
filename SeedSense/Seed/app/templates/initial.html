@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grid Creator</title>
-    <p>Create a grid </p>
     <style>
         /* Body Styling */
         body {
@@ -97,12 +96,7 @@
     </style>
 </head>
 <body>
-    <h1>Progress Bar and Grid Example</h1>
-
-    <!-- Progress Bar Section -->
-    <div id="progress-container">
-        <div id="progress-bar"></div>
-    </div>
+    <h1>Create your own grid</h1>
 
     <!-- Grid Section -->
     <div id="grid-input">
@@ -113,21 +107,12 @@
     <div id="grid-container"></div>
 
     <!-- Enter Button -->
-    <link href="{{ url_for('static', filename='minerals.html') }}">
+    <a href="{{ url_for('Minerals') }}">
+    <link href="{{ url_for(filename='minerals.html') }}">
         <button type="button">Enter</button>
     </a>
 
     <script>
-        let progress = 0;  // Initial progress
-
-        // Function to increase progress bar
-        function increaseProgress() {
-            if (progress < 25) {
-                progress = 25;
-                document.getElementById("progress-bar").style.width = progress + "%";
-                localStorage.setItem('progress', progress); // Store progress in localStorage
-            }
-        }
 
         // Function to create grid based on user input
         function createGrid() {
@@ -160,26 +145,6 @@
                 alert("Please enter a valid grid size (e.g., 2x2).");
             }
         }
-
-        // Function to handle Enter button click
-        function goToMineralsPage() {
-            // Store the current progress value
-            localStorage.setItem('progress', progress);
-
-            // Navigate to the minerals page
-            window.location.href = 'minerals.html'; // Redirect to minerals page
-        }
-
-        // On page load, restore the progress bar to the saved value (if any)
-        window.onload = function() {
-            const savedProgress = localStorage.getItem('progress');  
-            if (savedProgress !== null) {  // Ensure the value is not null
-                progress = parseInt(savedProgress);  
-            } else {
-                progress = 0; // Default to 0 if no saved progress
-            }
-            document.getElementById("progress-bar").style.width = progress + "%";
-        };
 
     </script>
 </body>

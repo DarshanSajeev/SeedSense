@@ -451,3 +451,7 @@ def RecCycle():
 
     
     return 
+
+@app.route('/Minerals', methods=['GET', 'POST'])
+def Minerals():
+    return render_template

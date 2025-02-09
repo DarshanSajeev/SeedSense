@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Essentials - Seed Sense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Growth Essentials</h1>
+        <label for="filter">Sort by:</label>
+        <select id="filter" onchange="filterPlants()">
+            <option value="water">Water</option>
+            <option value="sunlight">Sunlight</option>
+            <option value="temperature">Temperature</option>
+        </select>
+
+        <div id="plant-list">
+            {% for plant in plants %}
+                <div class="plant-box" data-category="{{ plant.category }}">
+                    <h3>{{ plant.name }}</h3>
+                    <p><strong>Water:</strong> {{ plant.water }}</p>
+                    <p><strong>Sunlight:</strong> {{ plant.sunlight }}</p>
+                    <p><strong>Temperature:</strong> {{ plant.temperature }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function filterPlants() {
+            let filter = document.getElementById("filter").value;
+            let plants = document.querySelectorAll(".plant-box");
+
+            plants.forEach(plant => {
+                let category = plant.getAttribute("data-category");
+                if (filter === "all" || category === filter) {
+                    plant.style.display = "block";
+                } else {
+                    plant.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
