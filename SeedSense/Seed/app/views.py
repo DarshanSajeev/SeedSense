@@ -233,7 +233,7 @@ Links:
 """
 @app.route('/SeedTypes', methods=['GET', 'POST'])
 def SeedTypes():
-     if request.method == 'POST':
+    if request.method == 'POST':
         SeedName = request.form.get('seed-type')
         MinTemp = request.form.get('min-temp', type=float)
         MaxTemp = request.form.get('max-temp', type=float)
