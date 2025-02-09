@@ -1,4 +1,6 @@
-from app import app
+from app import app, db, models
+from flask import render_template, flash,redirect ,request
+
 
 
 """
@@ -16,7 +18,7 @@ Links:
     Sign Up Page
     Login Page
 """
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def Home():
 
     return render_template("index.html")
@@ -42,10 +44,34 @@ Links:
     Login Page
 
 """
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/Register', methods=['GET', 'POST'])
 def Register():
+    if request.method == 'POST':
+        Username = request.form.get('username')
+        Email = request.form.get('email')
+        Password = request.form.get('password')
 
-    return
+        # Check if username or email already exists
+        ExistingEmail = models.User.query.filter_by(Email=Email).first()
+        ExistingUser = models.User.query.filter_by(Username=Username).first()
+
+        if ExistingEmail:
+            flash("Email is already in use. Please log in.", "danger")
+            return redirect(url_for("Register"))
+        elif ExistingUser:
+            flash("Username is already in use. Please change it.", "danger")
+            return redirect(url_for("Register"))
+        else:
+            NewUser = models.User(Username = form.Username.data,
+            Password = form.Password.data,
+            Email = form.Email.data,
+            SeedList = "")
+
+            # Save user to the database
+            db.session.add(NewUser)
+            db.session.commit()
+            
+    return render_template("register.html")
 
 
 """
@@ -68,8 +94,21 @@ Links:
 """
 @app.route('/LogIn', methods=['GET', 'POST'])
 def LogIn():
+    if request.method == 'POST':
+        Username = request.form.get('username')
+        Password = request.form.get('password')
 
-    return
+        if Username and Password:
+            CurrentUser = models.User.query.filter_by(Username = Username).first()
+
+            if CurrentUser == None:
+                flash("User does not exist","danger")
+                return redirect(url("LogIn"))
+            elif CurrentUser.Password != Password:
+                flash("Password is incorrect", "danger")
+                return redirect(url_for("LogIn"))
+
+    return render_template("login.html")
 
 
 """
@@ -211,7 +250,7 @@ Links:
 
 """
 @app.route('/SchedBoard', methods=['GET', 'POST'])
-def ScheduleDashboard():
+def SchedBoard():
 
     return
 

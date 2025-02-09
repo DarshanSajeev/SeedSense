@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Seed Sense</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -27,13 +27,13 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
-            <a href="dashboard.html">
+            <a href="{{ url_for('Register') }}">
                 <button type="button">Login</button>
             </a>
               
         </form>
 
-        <p>Don't have an account? <a href="register.html" class="btn">Register here</a></p>
+        <p>Don't have an account? <a href="{{ url_for('Register') }}" class="btn">Register here</a></p>
     </div>
 
 </body>
