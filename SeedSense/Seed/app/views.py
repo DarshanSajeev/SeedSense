@@ -250,7 +250,7 @@ Links:
 
 """
 @app.route('/SchedBoard', methods=['GET', 'POST'])
-def ScheduleDashboard():
+def SchedBoard():
 
     return
 
