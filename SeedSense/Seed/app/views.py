@@ -195,18 +195,18 @@ def SeedTypes():
 
         # Create a new seed object
         new_seed = Seed(
-            SeedName=SeedName,
-            OwnerId=session['UserId'],
-            MinTemp=MinTemp,
-            MaxTemp=MaxTemp,
-            MinWater=MinWater,
-            MaxWater=MaxWater,
-            MinSun=MinSun,
-            MaxSun=MaxSun,
-            GermeTime=GermeTime,
-            WaterFreq=WaterFreq,
-            MineralGive=MineralGive,
-            MineralTake=MineralTake
+            SeedName = SeedName,
+            OwnerId = session['UserId'],
+            MinTemp = MinTemp,
+            MaxTemp = MaxTemp,
+            MinWater = MinWater,
+            MaxWater = MaxWater,
+            MinSun = MinSun,
+            MaxSun = MaxSun,
+            GermeTime = GermeTime,
+            WaterFreq = WaterFreq,
+            MineralGive = MineralGive,
+            MineralTake = MineralTake
         )
 
         db.session.add(new_seed)
@@ -222,16 +222,14 @@ def SeedTypes():
 
 
 """
-Seed Location Page
+Field Creation Page
 
 Purpose:
-    Input locations for seed planting through an interactive grid.
+    Create farm field through an interactive grid.
 
 Components:
 
-    Grid: Users select specific cells to assign seeds.
     Grid Size Input: Allows users to specify the size of the planting grid.
-    Seed Selection: Users can choose the seed type to be planted in each selected grid cell.
     Confirm Button: Confirms the placement of the selected seeds on the grid.
 
 Links:
@@ -240,10 +238,30 @@ Links:
     Crop Cycle Page
     Seed Plot Page 
 """
-@app.route('/SeedLocation', methods=['GET', 'POST'])
-def SeedLocation():
+@app.route('/FieldCreation', methods=['GET', 'POST'])
+def FieldCreation():
+        if request.method == 'POST':
+            FieldName = request.form.get('fieldname')
+            NumRow = request.form.get('numrow', type=int)
+            NumColumn = request.form.get('numcolumn', type=int)
 
-    return
+            # Create a new grid object
+            new_grid = Grid(
+                OwnerId=session['UserId'],
+                FieldName=FieldName,
+                NumRow=NumRow,
+                NumColumn=NumColumn,
+                SeedMatrix = "",
+                MineralsMatrix = ""
+            )
+
+            db.session.add(new_grid)
+            db.session.commit()
+            flash("Grid created successfully!", "success")
+            return redirect(url_for(''))
+
+    return render_template()
+
 
 
 """
