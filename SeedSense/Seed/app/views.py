@@ -133,8 +133,38 @@ def LogOut():
     # Remove the user ID from the session
     session.pop('UserId', None)  
     flash("You have logged out", "info")
+    
     return redirect(url_for('Home'))
 
+
+"""
+Dashboard Page
+
+Purpose:
+    Provide users with a central hub for managing field-related tasks.
+
+Components:
+    
+    Watering: Allows users to manage watering schedules and settings for crops.
+    Placement: Enables users to organize and place crops within their designated field areas.
+    Crop Cycle: Helps users track and manage crop growth stages and timelines.
+    Create Crops: Allows users to add new crops to the system.
+
+Links:
+    Watering Page
+    Placement Page
+    Crop Cycle Page
+    Create Crops Page
+    Logout (Redirects to Login Page)
+"""
+@app.route('/dashboard')
+def dashboard():
+    # Check if user is logged in
+    if 'UserId' not in session:
+        flash("You must log in first.", "warning")
+        return redirect(url_for('login'))
+
+    return render_template('dashboard.html')
 
 
 """
