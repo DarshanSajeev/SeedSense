@@ -170,14 +170,17 @@
             window.location.href = 'minerals.html'; // Redirect to minerals page
         }
 
-        // On page load, set the progress bar to the saved value (if any)
+        // On page load, restore the progress bar to the saved value (if any)
         window.onload = function() {
-            const savedProgress = localStorage.getItem('progress');
-            if (savedProgress) {
-                progress = parseInt(savedProgress);
-                document.getElementById("progress-bar").style.width = progress + "%";
+            const savedProgress = localStorage.getItem('progress');  
+            if (savedProgress !== null) {  // Ensure the value is not null
+                progress = parseInt(savedProgress);  
+            } else {
+                progress = 0; // Default to 0 if no saved progress
             }
-        }
+            document.getElementById("progress-bar").style.width = progress + "%";
+        };
+
     </script>
 </body>
 </html>

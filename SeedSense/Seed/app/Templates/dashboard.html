@@ -85,26 +85,31 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .dashboard {
-                grid-template-columns: 1fr; /* Stack buttons on small screens */
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <h1 class="page-header">Dashboard</h1>
+
+    <!-- Logouts the user -->
     <button id="logout" onclick="logout()">Logout</button>
 
     <div class="dashboard">
+        <!-- Infor for watering the plants -->
         <button class="section-button" onclick="window.location.href='watering.html'">
             Watering
             <p>Manage watering schedules and settings for crops.</p>
         </button>
 
+        <!-- Where to put seeds in the grid -->
         <button class="section-button" onclick="window.location.href='placement.html'">
             Placement
             <p>Manage the placement of crops within the field.</p>
         </button>
 
+        
         <button class="section-button" onclick="window.location.href='crop_cycle.html'">
             Crop Cycle
             <p>View and manage crop growth stages and timelines.</p>
